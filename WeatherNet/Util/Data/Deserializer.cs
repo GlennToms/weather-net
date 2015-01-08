@@ -23,6 +23,8 @@ namespace WeatherNet.Util.Data
             if (response["sys"] != null)
             {
                 weatherCurrent.Country = Encoding.UTF8.GetString(Encoding.Default.GetBytes(Convert.ToString(response["sys"]["country"])));
+                weatherCurrent.SunRise = Convert.ToInt32(response["sys"]["sunrise"]);
+                weatherCurrent.SunSet = Convert.ToInt32(response["sys"]["sunset"]);
             }
 
             if (response["weather"] != null)
