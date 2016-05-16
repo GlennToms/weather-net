@@ -17,7 +17,8 @@ namespace WeatherNetTest
         {
             //Specifying optional settings
             ClientSettings.ApiUrl = "http://api.openweathermap.org/data/2.5";
-            ClientSettings.ApiKey = "1234567890";
+            //ClientSettings.ApiKey = "1234567890";
+            ClientSettings.ApiKey = "2a5bf735f317f8e4dd8237b5923357d4";
 
 
             //Exist
@@ -29,6 +30,16 @@ namespace WeatherNetTest
             result = CurrentWeather.GetByCityName("Dublin", "Ireland", "nl", "imperial");
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Item);
+        }
+
+        [TestMethod]
+        public void GetCurrentWeatherSunRise()
+        {
+            ClientSettings.ApiKey = "2a5bf735f317f8e4dd8237b5923357d4";
+            //Exist
+            var result = CurrentWeather.GetByCityName("Dublin", "Ireland", "se", "metric");
+            Assert.IsTrue(result.Success);
+            Assert.IsNotNull(result.Item.SunRise);
         }
 
         [TestMethod]
@@ -128,13 +139,10 @@ namespace WeatherNetTest
         [TestMethod]
         public void GetSixteenDaysForecastByCityNameTest()
         {
-            //Does not exist
-            var result = SixteenDaysForecast.GetByCityName("testcitytest", "testcitytest", 14);
-            Assert.IsFalse(result.Success);
-            Assert.IsNull(result.Items);
+            ClientSettings.ApiKey = "2a5bf735f317f8e4dd8237b5923357d4";
 
             //Exist
-            result = SixteenDaysForecast.GetByCityName("Dublin", "Ireland", 14);
+            var result = SixteenDaysForecast.GetByCityName("Dublin", "Ireland", 14);
             Assert.IsTrue(result.Success);
             Assert.IsNotNull(result.Items);
             Assert.IsTrue(result.Items.Count > 0);
@@ -176,7 +184,7 @@ namespace WeatherNetTest
         [TestMethod]
         public void GetHistoryByCityNameTest()
         {
-            ClientSettings.ApiKey = "1234567890";
+            ClientSettings.ApiKey = "2a5bf735f317f8e4dd8237b5923357d4";
 
             //Exist
             var result = HistoricWeather.GetByCityName("Dublin", "Ireland", DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
@@ -189,15 +197,12 @@ namespace WeatherNetTest
             result = HistoricWeather.GetByCityName("testcitytest", "testcitytest", DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
             Assert.IsFalse(result.Success);
             Assert.IsNull(result.Items);
-
-
-
         }
 
         [TestMethod]
         public void GetHistoryByCityIdTest()
         {
-            ClientSettings.ApiKey = "1234567890";
+            ClientSettings.ApiKey = "2a5bf735f317f8e4dd8237b5923357d4";
 
             //Does not exist
             var result = HistoricWeather.GetByCityId(1111111, DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
@@ -215,7 +220,7 @@ namespace WeatherNetTest
         [TestMethod]
         public void GetHistoryByCityCoordinatesTest()
         {
-            ClientSettings.ApiKey = "1234567890";
+            ClientSettings.ApiKey = "2a5bf735f317f8e4dd8237b5923357d4";
 
             //Does not exist
             var result = HistoricWeather.GetByCoordinates(-1984453.363665, -1984453.363665, DateTime.Now.AddDays(-7), DateTime.Now.AddDays(-6));
@@ -229,6 +234,5 @@ namespace WeatherNetTest
             Assert.IsTrue(result.Items.Count > 0);
             Assert.IsNotNull(result.Items[0]);
         }
-
     }
 }
